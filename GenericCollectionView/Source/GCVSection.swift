@@ -32,31 +32,8 @@ public protocol GCVSection {
     func gcvSection(willDisplaySupplementaryView view: UICollectionReusableView, forElementKind kind: String, atIndex index: Int)
 }
 
-open class GCVStaticSection: GCVSection {
-    open var collectionViewItems: [(viewModel: GCVModel, cell: GCVCellType)] = []
-
-    open var inset: UIEdgeInsets = .zero
-    open var minimumLineSpacing: CGFloat = .zero
-    open var minimumInterItemSpacing: CGFloat = .zero
-    open var referenceHeaderSize: CGSize = .zero
-    open var referenceFooterSize: CGSize = .zero
-
-    public var headerViewType: (headerViewModel: GCVModel, headerView: GCVReusableViewType)?
-    public var footerViewType: (footerViewModel: GCVModel, footerView: GCVReusableViewType)?
-
-    public init() { }
-
-    open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
-        for item in collectionViewItems {
-            if item.cell.instantiateViewFromNib {
-                // TODO
-            } else {
-                collectionView.register(item.cell.cellType, forCellWithReuseIdentifier: item.cell.reuseIdentifier)
-            }
-        }
-    }
-
-    open func gcvRegisterReusableView(inCollectionView collectionView: UICollectionView, forKind kind: String) {
+extension GCVSection {
+    public func gcvRegisterReusableView(inCollectionView collectionView: UICollectionView, forKind kind: String) {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let collectionViewHeader = headerViewType else { return }
@@ -81,6 +58,158 @@ open class GCVStaticSection: GCVSection {
         }
     }
 
+    public func gcvSectionHeader(
+        _ collectionView: UICollectionView,
+        for indexPath: IndexPath
+        ) -> UICollectionReusableView {
+        guard let collectionViewHeader = headerViewType else { return UICollectionReusableView() }
+
+        let reusableView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: collectionViewHeader.headerView.reuseIdentifier,
+            for: indexPath
+        )
+
+        if let setupReusableView = collectionViewHeader.headerView.reusableViewSetupHandler {
+            setupReusableView(collectionViewHeader.headerViewModel, reusableView)
+        }
+
+        return reusableView
+    }
+
+    public func gcvSectionFooter(
+        _ collectionView: UICollectionView,
+        for indexPath: IndexPath
+        ) -> UICollectionReusableView {
+        guard let collectionViewFooter = footerViewType else { return UICollectionReusableView() }
+
+        let reusableView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            withReuseIdentifier: collectionViewFooter.footerView.reuseIdentifier,
+            for: indexPath
+        )
+
+        if let setupReusableView = collectionViewFooter.footerView.reusableViewSetupHandler {
+            setupReusableView(collectionViewFooter.footerViewModel, reusableView)
+        }
+
+        return reusableView
+    }
+}
+
+open class GCVDynamicSection: GCVSection {
+    open var cell: GCVCellType?
+    open var viewModels: [GCVDynamicModel] = []
+
+    open var inset: UIEdgeInsets = .zero
+    open var minimumLineSpacing: CGFloat = .zero
+    open var minimumInterItemSpacing: CGFloat = .zero
+    open var referenceHeaderSize: CGSize = .zero
+    open var referenceFooterSize: CGSize = .zero
+    open var headerViewType: (headerViewModel: GCVModel, headerView: GCVReusableViewType)?
+    open var footerViewType: (footerViewModel: GCVModel, footerView: GCVReusableViewType)?
+
+    public init() { }
+
+    open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
+        guard let cell = cell else { return }
+
+        if cell.instantiateViewFromNib {
+            // TODO
+        } else {
+            collectionView.register(cell.cellType, forCellWithReuseIdentifier: cell.reuseIdentifier)
+        }
+    }
+
+    public func numberOfItems() -> Int {
+        return viewModels.count
+    }
+
+    public func gcvSection(_ collectionView: UICollectionView, cellForItemAt index: Int, inSection section: Int) -> UICollectionViewCell {
+        guard let cellType = self.cell else { return UICollectionViewCell() }
+
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: cellType.reuseIdentifier,
+            for: IndexPath(row: index, section: section)
+        )
+
+        if let setup = cellType.cellSetupHandler {
+            setup(viewModels[index], cell)
+        }
+
+        return cell
+    }
+
+    open func gcvSection(sizeForItemAt index: Int) -> CGSize {
+        return .zero
+    }
+
+    public func gcvSection(shouldSelectItemAt index: Int) -> Bool {
+        guard let cell = self.cell else { return false }
+
+        return cell.isSelectable
+    }
+
+    public func gcvSection(didSelectItemAt index: Int) {
+        guard let cell = self.cell else { return }
+
+        if let didSelect = cell.didSelectHandler {
+            didSelect() // Probably should add index
+        }
+    }
+
+    public func gcvSection(willDisplay cell: UICollectionViewCell, atIndex index: Int) {
+        guard let cellType = self.cell else { return }
+
+        if let willDisplay = cellType.willDisplayHandler {
+            willDisplay(viewModels[index], cell)
+        }
+    }
+
+    public func gcvSection(willDisplaySupplementaryView view: UICollectionReusableView, forElementKind kind: String, atIndex index: Int) {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if let collectionViewHeader = headerViewType,
+                let willDisplay = collectionViewHeader.headerView.reusableViewWillDisplayHandler {
+                willDisplay(viewModels[index], view)
+            }
+
+        case UICollectionView.elementKindSectionFooter:
+            if let collectionViewFooter = footerViewType,
+                let willDisplay = collectionViewFooter.footerView.reusableViewWillDisplayHandler {
+                willDisplay(viewModels[index], view)
+            }
+
+        default:
+            break
+        }
+    }
+}
+
+open class GCVStaticSection: GCVSection {
+    open var collectionViewItems: [(viewModel: GCVModel, cell: GCVCellType)] = []
+
+    open var inset: UIEdgeInsets = .zero
+    open var minimumLineSpacing: CGFloat = .zero
+    open var minimumInterItemSpacing: CGFloat = .zero
+    open var referenceHeaderSize: CGSize = .zero
+    open var referenceFooterSize: CGSize = .zero
+
+    public var headerViewType: (headerViewModel: GCVModel, headerView: GCVReusableViewType)?
+    public var footerViewType: (footerViewModel: GCVModel, footerView: GCVReusableViewType)?
+
+    public init() { }
+
+    open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
+        for item in collectionViewItems {
+            if item.cell.instantiateViewFromNib {
+                // TODO
+            } else {
+                collectionView.register(item.cell.cellType, forCellWithReuseIdentifier: item.cell.reuseIdentifier)
+            }
+        }
+    }
+
     open func numberOfItems() -> Int {
         return collectionViewItems.count
     }
@@ -102,44 +231,6 @@ open class GCVStaticSection: GCVSection {
         }
 
         return cell
-    }
-
-    open func gcvSectionHeader(
-        _ collectionView: UICollectionView,
-        for indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        guard let collectionViewHeader = headerViewType else { return UICollectionReusableView() }
-
-        let reusableView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: collectionViewHeader.headerView.reuseIdentifier,
-            for: indexPath
-        )
-
-        if let setupReusableView = collectionViewHeader.headerView.reusableViewSetupHandler {
-            setupReusableView(collectionViewHeader.headerViewModel, reusableView)
-        }
-
-        return reusableView
-    }
-
-    open func gcvSectionFooter(
-        _ collectionView: UICollectionView,
-        for indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        guard let collectionViewFooter = footerViewType else { return UICollectionReusableView() }
-
-        let reusableView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionFooter,
-            withReuseIdentifier: collectionViewFooter.footerView.reuseIdentifier,
-            for: indexPath
-        )
-
-        if let setupReusableView = collectionViewFooter.footerView.reusableViewSetupHandler {
-            setupReusableView(collectionViewFooter.footerViewModel, reusableView)
-        }
-
-        return reusableView
     }
 
     open func gcvSection(sizeForItemAt index: Int) -> CGSize {
@@ -168,7 +259,22 @@ open class GCVStaticSection: GCVSection {
         }
     }
 
-    open func gcvSection(willDisplaySupplementaryView view: UICollectionReusableView, forElementKind kind: String, atIndex index: Int) {
+    public func gcvSection(willDisplaySupplementaryView view: UICollectionReusableView, forElementKind kind: String, atIndex index: Int) {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            if let collectionViewHeader = headerViewType,
+                let willDisplay = collectionViewHeader.headerView.reusableViewWillDisplayHandler {
+                willDisplay(collectionViewItems[index].viewModel, view)
+            }
 
+        case UICollectionView.elementKindSectionFooter:
+            if let collectionViewFooter = footerViewType,
+                let willDisplay = collectionViewFooter.footerView.reusableViewWillDisplayHandler {
+                willDisplay(collectionViewItems[index].viewModel, view)
+            }
+
+        default:
+            break
+        }
     }
 }

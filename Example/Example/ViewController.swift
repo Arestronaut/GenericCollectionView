@@ -16,7 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         let testSectionDescriptor = ExampleStaticSection()
-        collectionView.update(sectionDescriptors: [testSectionDescriptor])
+        let testDynamicDescriptor = ExampleDynamicSection()
+        collectionView.update(sectionDescriptors: [testSectionDescriptor, testDynamicDescriptor])
     }
 }
 

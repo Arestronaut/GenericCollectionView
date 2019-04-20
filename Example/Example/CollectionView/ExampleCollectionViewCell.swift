@@ -13,7 +13,23 @@ struct ExampleViewModel: GCVModel {
     var color: UIColor
 }
 
+struct ExmapleDynamicViewModel: GCVDynamicModel {
+    var totalItemCount: Int?
+    var index: Int?
+
+    var color: UIColor
+}
+
 class ExampleCollectionViewCell: UICollectionViewCell {
+    var dynamicViewModel: ExmapleDynamicViewModel? {
+        didSet {
+            print(dynamicViewModel?.totalItemCount?.description)
+            print(dynamicViewModel?.index?.description)
+
+            testView.backgroundColor = dynamicViewModel?.color
+        }
+    }
+
     var viewModel: ExampleViewModel? {
         didSet {
             testView.backgroundColor = viewModel?.color

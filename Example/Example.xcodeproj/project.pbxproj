@@ -16,6 +16,7 @@
 		DE91C0BC226A200500E220DE /* ReusableStaticSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C0BB226A200500E220DE /* ReusableStaticSection.swift */; };
 		DE91C0BF226A399500E220DE /* GenericCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE91C0BE226A399500E220DE /* GenericCollectionView.framework */; };
 		DEF9408B226B2B490080AA09 /* ExampleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9408A226B2B490080AA09 /* ExampleHeaderView.swift */; };
+		DEF9408D226B3FAB0080AA09 /* ExampleDynamicSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9408C226B3FAB0080AA09 /* ExampleDynamicSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		DE91C0BB226A200500E220DE /* ReusableStaticSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableStaticSection.swift; sourceTree = "<group>"; };
 		DE91C0BE226A399500E220DE /* GenericCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GenericCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEF9408A226B2B490080AA09 /* ExampleHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleHeaderView.swift; sourceTree = "<group>"; };
+		DEF9408C226B3FAB0080AA09 /* ExampleDynamicSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleDynamicSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				DEF9408A226B2B490080AA09 /* ExampleHeaderView.swift */,
 				DE91C0B8226A1F1E00E220DE /* ExampleCollectionViewCell.swift */,
 				DE91C0BB226A200500E220DE /* ReusableStaticSection.swift */,
+				DEF9408C226B3FAB0080AA09 /* ExampleDynamicSection.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 				DE91C0B9226A1F1E00E220DE /* ExampleCollectionViewCell.swift in Sources */,
 				DE91C0A9226A11D900E220DE /* ViewController.swift in Sources */,
 				DE91C0BC226A200500E220DE /* ReusableStaticSection.swift in Sources */,
+				DEF9408D226B3FAB0080AA09 /* ExampleDynamicSection.swift in Sources */,
 				DE91C0A7226A11D900E220DE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
