@@ -96,7 +96,9 @@ open class GCVStaticSection: GCVSection {
     }
 
     open func gcvSection(shouldSelectItemAt index: Int) -> Bool {
-        return true
+        let itemAtIndex = collectionViewItems[index]
+
+        return itemAtIndex.cell.isSelectable
     }
 
     open func gcvSection(didSelectItemAt index: Int) {
