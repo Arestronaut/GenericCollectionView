@@ -21,7 +21,9 @@ public protocol GCVCellInstantiatable {
 }
 
 public protocol GCVCellConfigurable {
-    var configurationHandler: ((GCVModel, UICollectionViewCell) -> Void)? { get set }
+    var cellSetupHandler: ((GCVModel, UICollectionViewCell) -> Void)? { get set }
+    var willDisplayHandler: ((GCVModel, UICollectionViewCell) -> Void)? { get set }
+    var didSelectHandler: (() -> Void)? { get set }
 }
 
 public typealias GCVCellType = (GCVCellTypable & GCVCellInstantiatable & GCVCellConfigurable)
@@ -43,14 +45,26 @@ extension GCVCellInstantiatable {
 public class GCVCell<ViewModel: GCVModel, CellViewType: UICollectionViewCell>: GCVCellType {
     public var cellType: UICollectionViewCell.Type = CellViewType.self
     public var instantiateViewFromNib: Bool = false
-    public var configurationHandler: ((GCVModel, UICollectionViewCell) -> Void)?
+    public var cellSetupHandler: ((GCVModel, UICollectionViewCell) -> Void)?
+    public var willDisplayHandler: ((GCVModel, UICollectionViewCell) -> Void)?
+    public var didSelectHandler: (() -> Void)?
 
     public required init() {}
 
-    public func configure(_ closure: @escaping (ViewModel, CellViewType) -> Void) {
-        self.configurationHandler = { [unowned self] viewModel, cell in
+    public func setupCell(_ closure: @escaping (ViewModel, CellViewType) -> Void) {
+        self.cellSetupHandler = { [unowned self] viewModel, cell in
             closure(self.typeModel(model: viewModel), self.typeCell(cell: cell))
         }
+    }
+
+    public func willDisplayCell(_ closure: @escaping (ViewModel, CellViewType) -> Void) {
+        self.willDisplayHandler = { [unowned self] viewModel, cell in
+            closure(self.typeModel(model: viewModel), self.typeCell(cell: cell))
+        }
+    }
+
+    public func didSelectCell(_ closure: @escaping () -> Void) {
+        self.didSelectHandler = closure
     }
 
     private func typeModel(model: GCVModel) -> ViewModel {

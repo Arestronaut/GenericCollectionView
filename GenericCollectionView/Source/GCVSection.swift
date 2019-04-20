@@ -70,10 +70,17 @@ open class GCVStaticSection: GCVSection {
         inSection section: Int
     ) -> UICollectionViewCell {
         let itemAtIndex = collectionViewItems[index]
-        return collectionView.dequeueReusableCell(
+
+        let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: itemAtIndex.cell.reuseIdentifier,
             for: IndexPath(row: index, section: section)
         )
+
+        if let setupHandler = itemAtIndex.cell.cellSetupHandler {
+            setupHandler(itemAtIndex.viewModel, cell)
+        }
+
+        return cell
     }
 
     open func gcvSectionHeader(_ collectionView: UICollectionView) -> UICollectionReusableView {
@@ -93,14 +100,18 @@ open class GCVStaticSection: GCVSection {
     }
 
     open func gcvSection(didSelectItemAt index: Int) {
-        return
+        let itemAtIndex = collectionViewItems[index]
+
+        if let didSelect = itemAtIndex.cell.didSelectHandler {
+            didSelect()
+        }
     }
 
     open func gcvSection(willDisplay cell: UICollectionViewCell, atIndex index: Int) {
         let itemAtIndex = collectionViewItems[index]
 
-        if let configure = itemAtIndex.cell.configurationHandler {
-            configure(itemAtIndex.viewModel, cell)
+        if let willDisplay = itemAtIndex.cell.willDisplayHandler {
+            willDisplay(itemAtIndex.viewModel, cell)
         }
     }
 

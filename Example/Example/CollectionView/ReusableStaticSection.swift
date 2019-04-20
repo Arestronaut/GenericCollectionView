@@ -14,8 +14,16 @@ class ExampleStaticSection: GCVStaticSection {
         super.init()
 
         let cell = GCVCell<ExampleViewModel, ExampleCollectionViewCell>(fromNib: false)
-        cell.configure { viewModel, cell in
+        cell.setupCell { viewModel, cell in
             cell.viewModel = viewModel
+        }
+
+        cell.willDisplayCell { _, _ in
+            print("willDisplay")
+        }
+
+        cell.didSelectCell {
+            print("DidSelect Cell")
         }
 
         collectionViewItems = [
