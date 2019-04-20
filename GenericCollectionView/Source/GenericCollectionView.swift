@@ -80,6 +80,8 @@ open class GenericCollectionView: UIView {
 
         for section in new {
             section.gcvRegisterCells(inCollectionView: collectionView)
+            section.gcvRegisterReusableView(inCollectionView: collectionView, forKind: UICollectionView.elementKindSectionHeader)
+            section.gcvRegisterReusableView(inCollectionView: collectionView, forKind: UICollectionView.elementKindSectionFooter)
         }
 
         collectionView.reloadItems(at: updated)
@@ -128,10 +130,10 @@ extension GenericCollectionView: UICollectionViewDataSource {
 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            return section.gcvSectionHeader(collectionView)
+            return section.gcvSectionHeader(collectionView, for: indexPath)
 
         case UICollectionView.elementKindSectionFooter:
-            return section.gcvSectionFooter(collectionView)
+            return section.gcvSectionFooter(collectionView, for: indexPath)
 
         default:
             fatalError("ViewForSupplementaryElementOfKind: Unexpected element kind: \(kind)")

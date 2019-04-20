@@ -12,6 +12,7 @@
 		DE91C0952269CCB200E220DE /* GCVSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C0942269CCB200E220DE /* GCVSection.swift */; };
 		DE91C097226A07F600E220DE /* GCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C096226A07F600E220DE /* GCVCell.swift */; };
 		DE91C099226A086300E220DE /* GCVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C098226A086300E220DE /* GCVModel.swift */; };
+		DE91C0C1226B246400E220DE /* GCVReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C0C0226B246400E220DE /* GCVReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		DE91C0942269CCB200E220DE /* GCVSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVSection.swift; sourceTree = "<group>"; };
 		DE91C096226A07F600E220DE /* GCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVCell.swift; sourceTree = "<group>"; };
 		DE91C098226A086300E220DE /* GCVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVModel.swift; sourceTree = "<group>"; };
+		DE91C0C0226B246400E220DE /* GCVReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				DE91C0942269CCB200E220DE /* GCVSection.swift */,
 				DE91C096226A07F600E220DE /* GCVCell.swift */,
 				DE91C098226A086300E220DE /* GCVModel.swift */,
+				DE91C0C0226B246400E220DE /* GCVReusableView.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				DE91C0952269CCB200E220DE /* GCVSection.swift in Sources */,
 				DE91C0932269CC4A00E220DE /* GenericCollectionView.swift in Sources */,
 				DE91C099226A086300E220DE /* GCVModel.swift in Sources */,
+				DE91C0C1226B246400E220DE /* GCVReusableView.swift in Sources */,
 				DE91C097226A07F600E220DE /* GCVCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

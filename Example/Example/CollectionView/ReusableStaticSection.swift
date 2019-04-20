@@ -13,6 +13,20 @@ class ExampleStaticSection: GCVStaticSection {
     override init() {
         super.init()
 
+        let header = GCVReusableView<ExampleHeaderViewModel, ExampleHeaderView>(fromNib: false)
+        header.setupReusableView { viewModel, reusableView in
+            reusableView.viewModel = viewModel
+        }
+
+        headerViewType = (ExampleHeaderViewModel(title: "Example Header"), header)
+
+        let footer = GCVReusableView<ExampleHeaderViewModel, ExampleHeaderView>(fromNib: false)
+        footer.setupReusableView { viewModel, reusableView in
+            reusableView.viewModel = viewModel
+        }
+
+        footerViewType = (ExampleHeaderViewModel(title: "Example Footer"), footer)
+
         let cell = GCVCell<ExampleViewModel, ExampleCollectionViewCell>(fromNib: false)
         cell.setupCell { viewModel, cell in
             cell.viewModel = viewModel
@@ -31,7 +45,9 @@ class ExampleStaticSection: GCVStaticSection {
             (viewModel: ExampleViewModel(color: .red), cell: cell)
         ]
 
-        inset = UIEdgeInsets(top: 16.0, left: 16.0, bottom: 16.0, right: 16.0)
+        referenceHeaderSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)
+        referenceFooterSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)
+        inset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)
         minimumLineSpacing = 16.0
     }
 
