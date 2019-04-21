@@ -18,10 +18,11 @@ class ExampleDynamicSection: GCVDynamicSection<ExmapleDynamicViewModel, ExampleC
             cell.dynamicViewModel = dynamicViewModel
         }
 
-        cell = exampleCell
+        gcvSetCellType(exampleCell)
+
         let colors: [UIColor] = [.black, .red, .green, .blue, .green, .yellow, .darkGray]
         for index in stride(from: 0, to: colors.count, by: 1) {
-            viewModels.append(ExmapleDynamicViewModel(totalItemCount: colors.count, index: index, color: colors[index]))
+            gcvAppendModel(ExmapleDynamicViewModel(totalItemCount: colors.count, index: index, color: colors[index]))
         }
 
         inset = UIEdgeInsets(top: 0.0, left: 16.0, bottom: 0.0, right: 16.0)

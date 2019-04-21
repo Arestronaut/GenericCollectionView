@@ -98,8 +98,8 @@ extension GCVSection {
 }
 
 open class GCVDynamicSection<ViewModel: GCVDynamicModel, CellType: UICollectionViewCell>: GCVSection {
-    open var cell: GCVCell<ViewModel, CellType>?
-    open var viewModels: [ViewModel] = []
+    private var cell: GCVCell<ViewModel, CellType>?
+    private var viewModels: [ViewModel] = []
 
     open var inset: UIEdgeInsets = .zero
     open var minimumLineSpacing: CGFloat = .zero
@@ -110,6 +110,14 @@ open class GCVDynamicSection<ViewModel: GCVDynamicModel, CellType: UICollectionV
     open var footerViewType: (footerViewModel: GCVModel, footerView: GCVReusableViewType)?
 
     public init() { }
+
+    public func gcvSetCellType(_ cell: GCVCell<ViewModel, CellType>) {
+        self.cell = cell
+    }
+
+    public func gcvAppendModel(_ model: ViewModel) {
+        viewModels.append(model)
+    }
 
     open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
         guard let cell = cell else { return }
@@ -242,13 +250,13 @@ open class GCVStaticSection: GCVSection {
         return .zero
     }
 
-    open func gcvSection(shouldSelectItemAt index: Int) -> Bool {
+    public func gcvSection(shouldSelectItemAt index: Int) -> Bool {
         let itemAtIndex = collectionViewItems[index]
 
         return itemAtIndex.cell.isSelectable
     }
 
-    open func gcvSection(didSelectItemAt index: Int) {
+    public func gcvSection(didSelectItemAt index: Int) {
         let itemAtIndex = collectionViewItems[index]
 
         if let didSelect = itemAtIndex.cell.didSelectHandler {
@@ -256,7 +264,7 @@ open class GCVStaticSection: GCVSection {
         }
     }
 
-    open func gcvSection(willDisplay cell: UICollectionViewCell, atIndex index: Int) {
+    public func gcvSection(willDisplay cell: UICollectionViewCell, atIndex index: Int) {
         let itemAtIndex = collectionViewItems[index]
 
         if let willDisplay = itemAtIndex.cell.willDisplayHandler {
