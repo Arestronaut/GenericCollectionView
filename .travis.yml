@@ -1,1 +1,5 @@
-
+language: objective-c
+osx_image: xcode10.2
+xcode_project: GenericCollectionView.xcodeproj
+xcode_scheme: GenericCollectionView
+xcode_destination: platform=iOS Simulator,OS=12.2,name=iPhone 8
