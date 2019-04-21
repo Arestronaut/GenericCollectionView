@@ -13,7 +13,19 @@
 		DE91C097226A07F600E220DE /* GCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C096226A07F600E220DE /* GCVCell.swift */; };
 		DE91C099226A086300E220DE /* GCVModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C098226A086300E220DE /* GCVModel.swift */; };
 		DE91C0C1226B246400E220DE /* GCVReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE91C0C0226B246400E220DE /* GCVReusableView.swift */; };
+		DEF9409B226C5FF20080AA09 /* GenericCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF9409A226C5FF20080AA09 /* GenericCollectionViewTests.swift */; };
+		DEF9409D226C5FF20080AA09 /* GenericCollectionView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE91C0862269CC0100E220DE /* GenericCollectionView.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DEF9409E226C5FF20080AA09 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE91C07D2269CC0100E220DE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE91C0852269CC0100E220DE;
+			remoteInfo = GenericCollectionView;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DE91C0862269CC0100E220DE /* GenericCollectionView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GenericCollectionView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +36,10 @@
 		DE91C096226A07F600E220DE /* GCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVCell.swift; sourceTree = "<group>"; };
 		DE91C098226A086300E220DE /* GCVModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVModel.swift; sourceTree = "<group>"; };
 		DE91C0C0226B246400E220DE /* GCVReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCVReusableView.swift; sourceTree = "<group>"; };
+		DEF94092226C5F6D0080AA09 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DEF94098226C5FF20080AA09 /* GenericCollectionViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GenericCollectionViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEF9409A226C5FF20080AA09 /* GenericCollectionViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewTests.swift; sourceTree = "<group>"; };
+		DEF9409C226C5FF20080AA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +50,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEF94095226C5FF20080AA09 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF9409D226C5FF20080AA09 /* GenericCollectionView.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,7 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				DE91C0882269CC0100E220DE /* GenericCollectionView */,
+				DEF94099226C5FF20080AA09 /* GenericCollectionViewTests */,
 				DE91C0872269CC0100E220DE /* Products */,
+				DEF94091226C5F6C0080AA09 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				DE91C0862269CC0100E220DE /* GenericCollectionView.framework */,
+				DEF94098226C5FF20080AA09 /* GenericCollectionViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +100,23 @@
 				DE91C0C0226B246400E220DE /* GCVReusableView.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		DEF94091226C5F6C0080AA09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEF94092226C5F6D0080AA09 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEF94099226C5FF20080AA09 /* GenericCollectionViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				DEF9409A226C5FF20080AA09 /* GenericCollectionViewTests.swift */,
+				DEF9409C226C5FF20080AA09 /* Info.plist */,
+			);
+			path = GenericCollectionViewTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,18 +151,40 @@
 			productReference = DE91C0862269CC0100E220DE /* GenericCollectionView.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		DEF94097226C5FF20080AA09 /* GenericCollectionViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEF940A0226C5FF20080AA09 /* Build configuration list for PBXNativeTarget "GenericCollectionViewTests" */;
+			buildPhases = (
+				DEF94094226C5FF20080AA09 /* Sources */,
+				DEF94095226C5FF20080AA09 /* Frameworks */,
+				DEF94096226C5FF20080AA09 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEF9409F226C5FF20080AA09 /* PBXTargetDependency */,
+			);
+			name = GenericCollectionViewTests;
+			productName = GenericCollectionViewTests;
+			productReference = DEF94098226C5FF20080AA09 /* GenericCollectionViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		DE91C07D2269CC0100E220DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = raoulschwagmeier;
 				TargetAttributes = {
 					DE91C0852269CC0100E220DE = {
 						CreatedOnToolsVersion = 10.2;
 						LastSwiftMigration = 1020;
+					};
+					DEF94097226C5FF20080AA09 = {
+						CreatedOnToolsVersion = 10.2.1;
 					};
 				};
 			};
@@ -135,12 +201,20 @@
 			projectRoot = "";
 			targets = (
 				DE91C0852269CC0100E220DE /* GenericCollectionView */,
+				DEF94097226C5FF20080AA09 /* GenericCollectionViewTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DE91C0842269CC0100E220DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEF94096226C5FF20080AA09 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -162,7 +236,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEF94094226C5FF20080AA09 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEF9409B226C5FF20080AA09 /* GenericCollectionViewTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DEF9409F226C5FF20080AA09 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DE91C0852269CC0100E220DE /* GenericCollectionView */;
+			targetProxy = DEF9409E226C5FF20080AA09 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DE91C08C2269CC0100E220DE /* Debug */ = {
@@ -340,6 +430,42 @@
 			};
 			name = Release;
 		};
+		DEF940A1226C5FF20080AA09 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UN495CWDD6;
+				INFOPLIST_FILE = GenericCollectionViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.schwagmeier.raoul.GenericCollectionViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DEF940A2226C5FF20080AA09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UN495CWDD6;
+				INFOPLIST_FILE = GenericCollectionViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.schwagmeier.raoul.GenericCollectionViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -357,6 +483,15 @@
 			buildConfigurations = (
 				DE91C08F2269CC0100E220DE /* Debug */,
 				DE91C0902269CC0100E220DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DEF940A0226C5FF20080AA09 /* Build configuration list for PBXNativeTarget "GenericCollectionViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEF940A1226C5FF20080AA09 /* Debug */,
+				DEF940A2226C5FF20080AA09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
