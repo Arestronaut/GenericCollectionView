@@ -40,8 +40,14 @@ class ExampleStaticSection: GCVStaticSection {
             print("DidSelect Cell")
         }
 
+        let dynamicCell = GCVCell<ExmapleDynamicViewModel, ExampleCollectionViewCell>(fromNib: false)
+        dynamicCell.willDisplayCell { viewModel, cell in
+            cell.dynamicViewModel = viewModel
+        }
+
         gcvAddItemToSection(viewModel: ExampleViewModel(color: .green), cell: cell)
         gcvAddItemToSection(viewModel: ExampleViewModel(color: .red), cell: cell)
+        gcvAddItemToSection(viewModel: ExmapleDynamicViewModel(totalItemCount: 0, index: 0, color: .red), cell: dynamicCell)
 
         referenceHeaderSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)
         referenceFooterSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)
