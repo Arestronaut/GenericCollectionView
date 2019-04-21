@@ -40,10 +40,8 @@ class ExampleStaticSection: GCVStaticSection {
             print("DidSelect Cell")
         }
 
-        collectionViewItems = [
-            (viewModel: ExampleViewModel(color: .green), cell: cell),
-            (viewModel: ExampleViewModel(color: .red), cell: cell)
-        ]
+        gcvAddItemToSection(viewModel: ExampleViewModel(color: .green), cell: cell)
+        gcvAddItemToSection(viewModel: ExampleViewModel(color: .red), cell: cell)
 
         referenceHeaderSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)
         referenceFooterSize = CGSize(width: UIScreen.main.bounds.width, height: 44.0)

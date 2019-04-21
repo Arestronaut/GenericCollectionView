@@ -17,8 +17,6 @@ open class GenericCollectionView: UIView {
         }
     }
 
-    private var registeredCellIdentifiers: [String] = []
-
     // MARK: View Elements
     private var collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()

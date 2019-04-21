@@ -97,9 +97,9 @@ extension GCVSection {
     }
 }
 
-open class GCVDynamicSection: GCVSection {
-    open var cell: GCVCellType?
-    open var viewModels: [GCVDynamicModel] = []
+open class GCVDynamicSection<ViewModel: GCVDynamicModel, CellType: UICollectionViewCell>: GCVSection {
+    open var cell: GCVCell<ViewModel, CellType>?
+    open var viewModels: [ViewModel] = []
 
     open var inset: UIEdgeInsets = .zero
     open var minimumLineSpacing: CGFloat = .zero
@@ -187,7 +187,7 @@ open class GCVDynamicSection: GCVSection {
 }
 
 open class GCVStaticSection: GCVSection {
-    open var collectionViewItems: [(viewModel: GCVModel, cell: GCVCellType)] = []
+    private var collectionViewItems: [(viewModel: GCVModel, cell: GCVCellType)] = []
 
     open var inset: UIEdgeInsets = .zero
     open var minimumLineSpacing: CGFloat = .zero
@@ -199,6 +199,11 @@ open class GCVStaticSection: GCVSection {
     public var footerViewType: (footerViewModel: GCVModel, footerView: GCVReusableViewType)?
 
     public init() { }
+
+    public func gcvAddItemToSection<ViewModel: GCVModel, CellType: UICollectionViewCell>(viewModel: ViewModel, cell: GCVCell<ViewModel, CellType>) {
+
+        collectionViewItems.append((viewModel: viewModel, cell: cell))
+    }
 
     open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
         for item in collectionViewItems {
