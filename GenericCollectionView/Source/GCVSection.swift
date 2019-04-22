@@ -149,7 +149,9 @@ open class GCVDynamicSection<ViewModel: GCVDynamicModel, CellType: UICollectionV
     }
 
     open func gcvSection(sizeForItemAt index: Int) -> CGSize {
-        return .zero
+        guard let cell = self.cell else { return .zero }
+
+        return cell.size
     }
 
     public func gcvSection(shouldSelectItemAt index: Int) -> Bool {
@@ -247,7 +249,7 @@ open class GCVStaticSection: GCVSection {
     }
 
     open func gcvSection(sizeForItemAt index: Int) -> CGSize {
-        return .zero
+        return collectionViewItems[index].cell.size
     }
 
     public func gcvSection(shouldSelectItemAt index: Int) -> Bool {

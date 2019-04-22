@@ -22,6 +22,7 @@ public protocol GCVCellInstantiatable {
 
 public protocol GCVCellConfigurable {
     var isSelectable: Bool { get set }
+    var size: CGSize { get set }
 
     var cellSetupHandler: ((GCVModel, UICollectionViewCell) -> Void)? { get set }
     var willDisplayHandler: ((GCVModel, UICollectionViewCell) -> Void)? { get set }
@@ -48,6 +49,7 @@ public class GCVCell<ViewModel: GCVModel, CellViewType: UICollectionViewCell>: G
     public var cellType: UICollectionViewCell.Type = CellViewType.self
     public var instantiateViewFromNib: Bool = false
     public var isSelectable: Bool = true
+    public var size: CGSize = .zero
     public var cellSetupHandler: ((GCVModel, UICollectionViewCell) -> Void)?
     public var willDisplayHandler: ((GCVModel, UICollectionViewCell) -> Void)?
     public var didSelectHandler: (() -> Void)?
