@@ -38,20 +38,36 @@ extension GCVSection {
         case UICollectionView.elementKindSectionHeader:
             guard let collectionViewHeader = headerViewType else { return }
 
-            collectionView.register(
-                collectionViewHeader.headerView.reuseableViewType,
-                forSupplementaryViewOfKind: kind,
-                withReuseIdentifier: String(describing: collectionViewHeader.headerView.reuseIdentifier)
-            )
+            if collectionViewHeader.headerView.instantiateFromNib {
+                collectionView.register(
+                    UINib(nibName: collectionViewHeader.headerView.reuseIdentifier, bundle: nil),
+                    forSupplementaryViewOfKind: kind,
+                    withReuseIdentifier: collectionViewHeader.headerView.reuseIdentifier
+                )
+            } else {
+                collectionView.register(
+                    collectionViewHeader.headerView.reuseableViewType,
+                    forSupplementaryViewOfKind: kind,
+                    withReuseIdentifier: String(describing: collectionViewHeader.headerView.reuseIdentifier)
+                )
+            }
 
         case UICollectionView.elementKindSectionFooter:
             guard let collectionViewFooter = footerViewType else { return }
 
-            collectionView.register(
-                collectionViewFooter.footerView.reuseableViewType,
-                forSupplementaryViewOfKind: kind,
-                withReuseIdentifier: collectionViewFooter.footerView.reuseIdentifier
-            )
+            if collectionViewFooter.footerView.instantiateFromNib {
+                collectionView.register(
+                    UINib(nibName: collectionViewFooter.footerView.reuseIdentifier, bundle: nil),
+                    forSupplementaryViewOfKind: kind,
+                    withReuseIdentifier: collectionViewFooter.footerView.reuseIdentifier
+                )
+            } else {
+                collectionView.register(
+                    collectionViewFooter.footerView.reuseableViewType,
+                    forSupplementaryViewOfKind: kind,
+                    withReuseIdentifier: collectionViewFooter.footerView.reuseIdentifier
+                )
+            }
 
         default:
             return
@@ -218,7 +234,7 @@ open class GCVStaticSection: GCVSection {
     open func gcvRegisterCells(inCollectionView collectionView: UICollectionView) {
         for item in collectionViewItems {
             if item.cell.instantiateViewFromNib {
-                // TODO
+                collectionView.register(UINib(nibName: item.cell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: item.cell.reuseIdentifier)
             } else {
                 collectionView.register(item.cell.cellType, forCellWithReuseIdentifier: item.cell.reuseIdentifier)
             }
